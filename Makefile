@@ -11,6 +11,19 @@ SRCS 		:= $(addprefix $(SRC_DIR)/, \
 				window_test.c)
 OBJS 		:= $(SRCS:.c=.o)
 
+#//= Colors =//#
+BOLD	:= \033[1m
+BLACK	:= \033[30;1m
+RED		:= \033[31;1m
+GREEN	:= \033[32;1m
+YELLOW	:= \033[33;1m
+BLUE	:= \033[34;1m
+MAGENTA	:= \033[35;1m
+CYAN	:= \033[36;1m
+WHITE	:= \033[37;1m
+RESET	:= \033[0m
+
+#//= Make Rules =//#
 all: libmlx $(NAME)
 
 libmlx:
@@ -18,7 +31,7 @@ libmlx:
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(GLFW3) $(FRAMEWORKS) -o $(NAME) && \
-		echo "Compilation successful"
+	echo "$(BLUE)$(BOLD)Compilation successful!$(RESET)"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ 
