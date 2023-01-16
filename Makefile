@@ -4,11 +4,12 @@ FRAMEWORKS 	:= -framework Cocoa -framework OpenGL -framework IOKit
 LIBMLX 		:= lib/MLX42
 LIBGLFW 	:= lib/glfw-3.3.8
 SRC_DIR 	:= src
-
+HEADERS		:= -I $(LIBMLX)/include/MLX42
 MLX42 		:= $(LIBMLX)/libmlx42.a
 GLFW3 		:= $(LIBGLFW)/lib-x86_64/libglfw3.a
 SRCS 		:= $(addprefix $(SRC_DIR)/, \
-				window_test.c)
+				draw_line_test.c \
+				isometric_projection.c)
 OBJS 		:= $(SRCS:.c=.o)
 
 #//= Colors =//#
@@ -30,7 +31,7 @@ libmlx:
 	@$(MAKE) HEADERS='-I ../glfw-3.3.8/include' -C $(LIBMLX)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(GLFW3) $(FRAMEWORKS) -o $(NAME) && \
+	@$(CC) $(CFLAGS) $(HEADERS) $(OBJS) $(MLX42) $(GLFW3) $(FRAMEWORKS) -o $(NAME) && \
 	echo "$(BLUE)$(BOLD)Compilation successful!$(RESET)"
 
 %.o: %.c
