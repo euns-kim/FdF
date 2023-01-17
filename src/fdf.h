@@ -13,6 +13,13 @@ typedef struct s_isometric {
 	int	y;
 }	t_isometric;
 
+typedef struct s_coordinates {
+	int x;
+	int y;
+	int z;
+}	t_coordinates;
+
 void		draw_line(mlx_image_t *g_img, int x0, int y0, int x1, int y1);
 void		draw_cube(mlx_image_t *img);
+void		rotate(void);
 t_isometric	isometric_projection(int x, int y, int z);
