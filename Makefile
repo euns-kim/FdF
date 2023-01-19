@@ -1,5 +1,5 @@
 NAME 		:= fdf
-CFLAGS 		:= -fsanitize=address -g3 -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS 		:= -fsanitize=address -g3 -Wextra -Wall -Werror -Wunreachable-code -Ofast -D BUFFER_SIZE=10000
 FRAMEWORKS 	:= -framework Cocoa -framework OpenGL -framework IOKit
 LIBMLX 		:= lib/MLX42
 LIBGLFW 	:= lib/glfw-3.3.8
