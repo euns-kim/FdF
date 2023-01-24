@@ -8,8 +8,11 @@ HEADERS		:= -I $(LIBMLX)/include/MLX42
 MLX42 		:= $(LIBMLX)/libmlx42.a
 GLFW3 		:= $(LIBGLFW)/lib-x86_64/libglfw3.a
 SRCS 		:= $(addprefix $(SRC_DIR)/, \
-				draw_line_test.c \
-				isometric_projection.c)
+				# draw_line_test.c \
+				# isometric_projection.c
+				fdf.c \
+				get_map.c \
+				get_map_utils.c)
 OBJS 		:= $(SRCS:.c=.o)
 
 #//= Colors =//#
