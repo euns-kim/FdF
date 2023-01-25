@@ -1,18 +1,31 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/24 19:05:03 by eunskim           #+#    #+#              #
+#    Updated: 2023/01/25 18:41:04 by eunskim          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME 		:= fdf
 CFLAGS 		:= -fsanitize=address -g3 -Wextra -Wall -Werror -Wunreachable-code -Ofast -D BUFFER_SIZE=10000
 FRAMEWORKS 	:= -framework Cocoa -framework OpenGL -framework IOKit
 LIBMLX 		:= lib/MLX42
 LIBGLFW 	:= lib/glfw-3.3.8
+LIBGNL		:= lib/get_next_line
 SRC_DIR 	:= src
 HEADERS		:= -I $(LIBMLX)/include/MLX42
 MLX42 		:= $(LIBMLX)/libmlx42.a
 GLFW3 		:= $(LIBGLFW)/lib-x86_64/libglfw3.a
+GNL			:= $(LIBGNL)/get_next_line.a
 SRCS 		:= $(addprefix $(SRC_DIR)/, \
-				# draw_line_test.c \
-				# isometric_projection.c
 				fdf.c \
 				get_map.c \
-				get_map_utils.c)
+				get_map_utils.c \
+				isometric_projection.c)
 OBJS 		:= $(SRCS:.c=.o)
 
 #//= Colors =//#
@@ -28,13 +41,16 @@ WHITE	:= \033[37;1m
 RESET	:= \033[0m
 
 #//= Make Rules =//#
-all: libmlx $(NAME)
+all: libmlx libgnl $(NAME)
 
 libmlx:
 	@$(MAKE) HEADERS='-I ../glfw-3.3.8/include' -C $(LIBMLX)
 
+libgnl:
+	@$(MAKE) -C $(LIBGNL)
+
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(HEADERS) $(OBJS) $(MLX42) $(GLFW3) $(FRAMEWORKS) -o $(NAME) && \
+	@$(CC) $(CFLAGS) $(HEADERS) $(OBJS) $(MLX42) $(GLFW3) $(GNL) $(FRAMEWORKS) -o $(NAME) && \
 	echo "$(BLUE)$(BOLD)Compilation successful!$(RESET)"
 
 %.o: %.c
@@ -42,12 +58,12 @@ $(NAME): $(OBJS)
 
 clean:
 	@rm -f $(OBJS)
-	@$(MAKE) -C $(LIBMLX) clean
+	@$(MAKE) -C $(LIBMLX) fclean
+	@$(MAKE) -C $(LIBGNL) fclean
 
 fclean: clean
 		@rm -f $(NAME)
-		@$(MAKE) -C $(LIBMLX) fclean
 
-re: clean all
+re: fclean all
 
-.PHONY: all. clean, fclean, re, libmlx
+.PHONY: all. clean, fclean, re, libmlx, libgnl

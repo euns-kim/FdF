@@ -6,16 +6,16 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:45:03 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/24 01:49:31 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/25 14:14:08 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	fdf_atoi(char **str)
+int32_t	fdf_atoi(char **str)
 {
-	int	sum;
-	int	sign;
+	int32_t	sum;
+	int32_t	sign;
 
 	sum = 0;
 	sign = 1;
@@ -43,7 +43,7 @@ void	free_p(char	*p)
 		free(p);
 }
 
-void	free_array(int i, t_coordis **array)
+void	free_array(int32_t i, t_coordis **array)
 {
 	while (i >= 0)
 	{

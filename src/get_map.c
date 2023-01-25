@@ -6,16 +6,16 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/24 01:44:06 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/25 18:37:11 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_coordis	**parse_map(int fd, t_map map, t_coordis **map_array)
+static t_coordis	**parse_map(int32_t fd, t_map map, t_coordis **map_array)
 {
-	int		i;
-	int		j;
+	int32_t	i;
+	int32_t	j;
 	char	*line;
 	char	*line_cpy;
 
@@ -31,8 +31,8 @@ static t_coordis	**parse_map(int fd, t_map map, t_coordis **map_array)
 				line++;
 			if ((*line >= '0' && *line <= '9') || *line == '-')
 			{
-				map_array[i][j].x = i - (map.row / 2);
-				map_array[i][j].y = j - (map.column / 2);
+				map_array[i][j].y = i - (map.row / 2);
+				map_array[i][j].x = j - (map.column / 2);
 				map_array[i][j].z = fdf_atoi(&line);
 			}
 		}
@@ -41,9 +41,9 @@ static t_coordis	**parse_map(int fd, t_map map, t_coordis **map_array)
 	return (map_array);
 }
 
-t_coordis	**get_map(int fd, t_map map, t_coordis **map_array)
+t_coordis	**get_map(int32_t fd, t_map map, t_coordis **map_array)
 {
-	int	i;
+	int32_t	i;
 
 	i = 0;
 	map_array = malloc(map.row * sizeof(t_coordis *));
@@ -85,7 +85,7 @@ static void	get_column(char *line, t_map *map)
 	}
 }
 
-void	get_map_size(int fd, t_map *map)
+void	get_map_size(int32_t fd, t_map *map)
 {
 	char		*line;
 
