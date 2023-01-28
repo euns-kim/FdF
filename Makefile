@@ -6,18 +6,18 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 19:05:03 by eunskim           #+#    #+#              #
-#    Updated: 2023/01/25 18:41:04 by eunskim          ###   ########.fr        #
+#    Updated: 2023/01/28 21:16:39 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		:= fdf
-CFLAGS 		:= -fsanitize=address -g3 -Wextra -Wall -Werror -Wunreachable-code -Ofast -D BUFFER_SIZE=10000
+CFLAGS 		:= -fsanitize=address -g3 -Wextra -Wall -Werror -Wunreachable-code -Ofast
 FRAMEWORKS 	:= -framework Cocoa -framework OpenGL -framework IOKit
 LIBMLX 		:= lib/MLX42
 LIBGLFW 	:= lib/glfw-3.3.8
 LIBGNL		:= lib/get_next_line
 SRC_DIR 	:= src
-HEADERS		:= -I $(LIBMLX)/include/MLX42
+HEADERS		:= -I $(LIBMLX)/include/MLX42/
 MLX42 		:= $(LIBMLX)/libmlx42.a
 GLFW3 		:= $(LIBGLFW)/lib-x86_64/libglfw3.a
 GNL			:= $(LIBGNL)/get_next_line.a
@@ -25,7 +25,9 @@ SRCS 		:= $(addprefix $(SRC_DIR)/, \
 				fdf.c \
 				get_map.c \
 				get_map_utils.c \
-				isometric_projection.c)
+				isometric_projection.c \
+				rotate.c \
+				keyhooks.c)
 OBJS 		:= $(SRCS:.c=.o)
 
 #//= Colors =//#

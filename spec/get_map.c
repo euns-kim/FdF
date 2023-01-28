@@ -6,11 +6,29 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:51:37 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/24 01:42:10 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/24 23:08:02 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "get_next_line.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <memory.h>
+#include <math.h>
+
+typedef struct s_map {
+	float	row;
+	float	column;
+}	t_map;
+
+typedef struct s_coordis {
+	float	x;
+	float	y;
+	float	z;
+//	t_2d	pixel;
+}	t_coordis;
 
 static int	fdf_atoi(char **str)
 {
@@ -37,27 +55,27 @@ static int	fdf_atoi(char **str)
 	return (sum * sign);
 }
 
-// void	print_map(t_map map, t_coordis **map_array)
-// {
-// 	int	i;
-// 	int	j;
+void	print_map(t_map map, t_coordis **map_array)
+{
+	int	i;
+	int	j;
 
-// 	i = 0;
-// 	while (i < map.row)
-// 	{
-// 		j = 0;
-// 		printf("\n");
-// 		while (j < map.column)
-// 		{
-// 			// printf("%.2f\t%.2f\t%.2f\n", map_array[i][j].x, map_array[i][j].y, map_array[i][j].z);
-// 			printf("%.2f\t", map_array[i][j].z);
-// 			j++;
-// 		}
-// 		printf("\n");
-// 		i++;
-// 	}
-// 	printf("\n");
-// }
+	i = 0;
+	while (i < map.row)
+	{
+		j = 0;
+		printf("\n");
+		while (j < map.column)
+		{
+			// printf("%.2f\t%.2f\t%.2f\n", map_array[i][j].x, map_array[i][j].y, map_array[i][j].z);
+			printf("%.2f\t", map_array[i][j].z);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	printf("\n");
+}
 
 static void	free_p(char	*p)
 {
@@ -162,8 +180,8 @@ static void	get_map_size(int fd, t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	// printf("\n row = %.2f \n", map->row);
-	// printf("\n column = %.2f \n\n", map->column);
+	printf("\n row = %.2f \n", map->row);
+	printf("\n column = %.2f \n\n", map->column);
 }
 
 int	main(int argc, char **argv)
@@ -196,7 +214,7 @@ int	main(int argc, char **argv)
 	map_array = NULL;
 	map_array = get_map(fd, map, map_array);
 	close(fd);
-	// print_map(map, map_array);
+	print_map(map, map_array);
 	free_array(map.row - 1, map_array);
 	exit(EXIT_SUCCESS);
 }

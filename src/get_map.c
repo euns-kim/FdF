@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/25 18:37:11 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/28 23:03:45 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static t_coordis	**parse_map(int32_t fd, t_map map, t_coordis **map_array)
 				line++;
 			if ((*line >= '0' && *line <= '9') || *line == '-')
 			{
-				map_array[i][j].y = i - (map.row / 2);
 				map_array[i][j].x = j - (map.column / 2);
+				map_array[i][j].y = i - (map.row / 2);
 				map_array[i][j].z = fdf_atoi(&line);
 			}
 		}
@@ -41,36 +41,60 @@ static t_coordis	**parse_map(int32_t fd, t_map map, t_coordis **map_array)
 	return (map_array);
 }
 
-t_coordis	**get_map(int32_t fd, t_map map, t_coordis **map_array)
+static t_coordis	**malloc_map(t_map map, t_coordis **map_array)
 {
 	int32_t	i;
 
 	i = 0;
 	map_array = malloc(map.row * sizeof(t_coordis *));
 	if (map_array == NULL)
+	{
+		printf("Malloc failed.");
 		exit(EXIT_FAILURE);
+	}
 	while (i < map.row)
 	{
 		map_array[i] = malloc(map.column * sizeof(t_coordis));
 		if (map_array[i] == NULL)
-		{
+		{	
 			free_array(i - 1, map_array);
+			printf("Malloc failed.");
 			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
+	return (map_array);
+}
+
+t_coordis	**get_map(t_map map, t_coordis **map_array)
+{
+	int32_t	fd;
+
+	fd = open(map.filename, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("file open error\n");
+		exit(EXIT_FAILURE);
+	}
+	map_array = malloc_map(map, map_array);
 	map_array = parse_map(fd, map, map_array);
+	fd = close(fd);
+	if (fd < 0)
+	{
+		printf("file close error\n");
+		exit(EXIT_FAILURE);
+	}
 	return (map_array);
 }
 
 static void	get_column(char *line, t_map *map)
 {
-	float	prev_column;
+	double	prev_column;
 
 	if (map->row != 1)
 		prev_column = map->column;
 	map->column = 1;
-	while (*line == ' ' && *(line + 1) != '\n')
+	while (*line == ' ' && *(line + 1) != '\n' && *(line + 1) != '\0')
 		line++;
 	while (*(line + 1) != '\n' && *(line + 1) != '\0')
 	{
@@ -85,10 +109,17 @@ static void	get_column(char *line, t_map *map)
 	}
 }
 
-void	get_map_size(int32_t fd, t_map *map)
+void	get_map_size(t_map *map)
 {
-	char		*line;
+	int32_t	fd;
+	char	*line;
 
+	fd = open(map->filename, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("file open error\n");
+		exit(EXIT_FAILURE);
+	}
 	map->row = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -97,5 +128,11 @@ void	get_map_size(int32_t fd, t_map *map)
 		get_column(line, map);
 		free(line);
 		line = get_next_line(fd);
+	}
+	fd = close(fd);
+	if (fd < 0)
+	{
+		printf("file close error\n");
+		exit(EXIT_FAILURE);
 	}
 }
