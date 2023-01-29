@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/28 23:03:45 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/29 17:59:29 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,23 @@ static t_coordis	**malloc_map(t_map map, t_coordis **map_array)
 	return (map_array);
 }
 
-t_coordis	**get_map(t_map map, t_coordis **map_array)
+void	get_map(t_map *map)
 {
 	int32_t	fd;
 
-	fd = open(map.filename, O_RDONLY);
+	fd = open(map->filename, O_RDONLY);
 	if (fd < 0)
 	{
 		printf("file open error\n");
 		exit(EXIT_FAILURE);
 	}
-	map_array = malloc_map(map, map_array);
-	map_array = parse_map(fd, map, map_array);
-	fd = close(fd);
-	if (fd < 0)
+	map->map_array = malloc_map((*map), map->map_array);
+	map->map_array = parse_map(fd, (*map), map->map_array);
+	if (close(fd) < 0)
 	{
 		printf("file close error\n");
 		exit(EXIT_FAILURE);
 	}
-	return (map_array);
 }
 
 static void	get_column(char *line, t_map *map)
@@ -129,8 +127,7 @@ void	get_map_size(t_map *map)
 		free(line);
 		line = get_next_line(fd);
 	}
-	fd = close(fd);
-	if (fd < 0)
+	if (close(fd) < 0)
 	{
 		printf("file close error\n");
 		exit(EXIT_FAILURE);

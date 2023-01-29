@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   arr_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:18:53 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/19 00:46:11 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/29 19:32:59 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,57 @@
 #include <stdlib.h>
 
 
-int **array = malloc(height * sizeof(int **));
-while(str && i< height)
+// int **array = malloc(height * sizeof(int **));
+// while(str && i< height)
+// {
+// 		*(array + i) = line_array = malloc(width * sizeof(int));
+// 		!check_malloc_fail
+// 			free(line_array);
+// 			free(array);
+// 		i++;
+// }
+// if (!array)
+// 	return (0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int	**malloc_2d_int_array(int row, int column)
 {
-		*(array + i) = line_array = malloc(width * sizeof(int));
-		!check_malloc_fail
-			free(line_array);
-			free(array);
+	int	**array_2d;
+	int	*array_treated_as_int;
+	int	i;
+
+	array_2d = malloc(sizeof(int *) * row + sizeof(int) * row * column);
+	array_treated_as_int = array_2d + row;
+	i = 0;
+	while (i < 4)
+	{
+		array_2d[i] =  array_treated_as_int + (i * column);
 		i++;
+	}
+	return (array_2d);
 }
-if (!array)
-	return (0);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -59,8 +74,10 @@ if (!array)
 
 int main(void)
 {
-	int	(*array)[5] = malloc(sizeof(int[4]));
+	int	**array;
+	
 	printf("%lu\n", sizeof(int[4]));
+	array = malloc_2d_int_array(4, 4);
 
 	// int a[4] = {1, 2, 3, 4};
 	// int b[4] = {5, 6, 7, 8};
@@ -83,10 +100,10 @@ int main(void)
 	array[3][1] = 32;
 	array[3][2] = 33;
 	array[3][3] = 34;
-	array[4][0] = 41;
-	array[4][1] = 42;
-	array[4][2] = 43;
-	array[4][3] = 44;
+	// array[4][0] = 41;
+	// array[4][1] = 42;
+	// array[4][2] = 43;
+	// array[4][3] = 44;
 	// array[1] = b;
 	// array[2] = c;
 	// array[3] = d;
@@ -97,12 +114,12 @@ int main(void)
 	printf("len:%d\n", len);
 	
 	int i = 0;
-	while (i < 5)
+	while (i < 4)
 	{
 		int j = 0;
 		while (j < 4)
 		{
-			printf("%d", array[i][j]);
+			printf("%d\t", array[i][j]);
 			j++;
 		}
 		printf("\n");

@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:46:49 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/29 00:15:09 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/29 17:14:42 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 // CMD+ : ROTATION OF 45 DEGREE ANGLE
 // D : TO DEFAULT
 
-
-void	rule_rotate(int32_t key, t_map *map)
+static void	rule_rotate(int32_t key, t_map *map)
 {
 	if (key == MLX_KEY_Q)
 		map->rotate_x += 5;
@@ -34,7 +33,7 @@ void	rule_rotate(int32_t key, t_map *map)
 		map->rotate_y += 5;
 	if (key == MLX_KEY_X)
 		map->rotate_y += 5;
-	draw_map();
+	draw_map(map);
 }
 
 void	hook(void *param)

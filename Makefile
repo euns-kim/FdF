@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 19:05:03 by eunskim           #+#    #+#              #
-#    Updated: 2023/01/28 21:16:39 by eunskim          ###   ########.fr        #
+#    Updated: 2023/01/29 20:28:41 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,11 @@ MLX42 		:= $(LIBMLX)/libmlx42.a
 GLFW3 		:= $(LIBGLFW)/lib-x86_64/libglfw3.a
 GNL			:= $(LIBGNL)/get_next_line.a
 SRCS 		:= $(addprefix $(SRC_DIR)/, \
-				fdf.c \
+				main.c \
 				get_map.c \
 				get_map_utils.c \
-				isometric_projection.c \
-				rotate.c \
+				draw_map.c \
+				update_point.c \
 				keyhooks.c)
 OBJS 		:= $(SRCS:.c=.o)
 

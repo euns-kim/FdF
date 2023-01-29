@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/29 00:14:53 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/29 20:25:23 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ static void	mlx_start(t_map *map)
 
 static void	init_map(t_map *map, char *arg)
 {
+	map->new_axis = WIDTH / 2;
+	map->new_ordinate = HEIGHT / 2;
 	map->factor = 20;
 	map->rotate_x = 0;
 	map->rotate_y = 0;
 	map->rotate_z = 0;
 	map->filename = arg;
+	map->map_array = NULL;
 }
 
 static int32_t	extension_check(const char *arg)
@@ -83,17 +86,40 @@ static void	arg_check(int32_t argc, char **argv)
 	}
 }
 
+// static void	print_map(t_map map, t_coordis **map_array)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (i < map.row)
+// 	{
+// 		j = 0;
+// 		printf("\n");
+// 		while (j < map.column)
+// 		{
+// 			printf("%.2f\t%.2f\t%.2f\n", map_array[i][j].x, map_array[i][j].y, map_array[i][j].z);
+// 			// printf("%.2f\t", map_array[i][j].z);
+// 			j++;
+// 		}
+// 		printf("\n");
+// 		i++;
+// 	}
+// 	printf("\n");
+// }
+
 int32_t	main(int32_t argc, char **argv)
 {
 	t_map		map;
-	t_coordis	**map_array;
-	// t_2d		**point_array;
 
 	arg_check(argc, argv);
 	init_map(&map, argv[1]);
 	get_map_size(&map);
-	map_array = get_map(map, NULL);
+	get_map(&map);
+	// print_map(map, map.map_array);
 	mlx_start(&map);
+	memset(map.img->pixels, 255, map.img->width * map.img->height * BPP);
+	draw_map(&map);
 	mlx_loop_hook(map.mlx, &hook, &map);
 	mlx_loop(map.mlx);
 	mlx_delete_image(map.mlx, map.img);
