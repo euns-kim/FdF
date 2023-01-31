@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/29 17:59:29 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:16:50 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static t_coordis	**parse_map(int32_t fd, t_map map, t_coordis **map_array)
 	char	*line_cpy;
 
 	i = -1;
-	while (i++ < map.row)
+	while (++i < map.row)
 	{
 		j = -1;
 		line = get_next_line(fd);
 		line_cpy = line;
-		while (j++ < map.column && line)
+		while (++j < map.column && line)
 		{	
 			while (*line == ' ')
 				line++;

@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/29 20:25:23 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/31 22:29:30 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	init_map(t_map *map, char *arg)
 	map->rotate_x = 0;
 	map->rotate_y = 0;
 	map->rotate_z = 0;
+	map->x_offset = 0;
+	map->y_offset = 0;
 	map->filename = arg;
 	map->map_array = NULL;
 }
@@ -86,28 +88,6 @@ static void	arg_check(int32_t argc, char **argv)
 	}
 }
 
-// static void	print_map(t_map map, t_coordis **map_array)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (i < map.row)
-// 	{
-// 		j = 0;
-// 		printf("\n");
-// 		while (j < map.column)
-// 		{
-// 			printf("%.2f\t%.2f\t%.2f\n", map_array[i][j].x, map_array[i][j].y, map_array[i][j].z);
-// 			// printf("%.2f\t", map_array[i][j].z);
-// 			j++;
-// 		}
-// 		printf("\n");
-// 		i++;
-// 	}
-// 	printf("\n");
-// }
-
 int32_t	main(int32_t argc, char **argv)
 {
 	t_map		map;
@@ -116,15 +96,14 @@ int32_t	main(int32_t argc, char **argv)
 	init_map(&map, argv[1]);
 	get_map_size(&map);
 	get_map(&map);
-	// print_map(map, map.map_array);
 	mlx_start(&map);
 	memset(map.img->pixels, 255, map.img->width * map.img->height * BPP);
 	draw_map(&map);
-	mlx_loop_hook(map.mlx, &hook, &map);
+	mlx_loop_hook(map.mlx, &keyhook, &map);
+	mlx_scroll_hook(map.mlx, &scrollhook, &map);
 	mlx_loop(map.mlx);
 	mlx_delete_image(map.mlx, map.img);
 	mlx_terminate(map.mlx);
-	// free_array(map.row - 1, map_array);
-	// free_array2(map.row - 1, point_array);
+	free_array(map.row - 1, map.map_array);
 	exit(EXIT_SUCCESS);
 }

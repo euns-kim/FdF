@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/29 20:25:14 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/01/31 18:25:10 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_map {
 	double		rotate_x;
 	double		rotate_y;
 	double		rotate_z;
+	int32_t		x_offset;
+	int32_t		y_offset;
 	int32_t		dx;
 	int32_t		dy;
 	t_coordis	**map_array;
@@ -64,7 +66,8 @@ void	free_p(char	*p);
 void	free_array(int32_t i, t_coordis **array);
 
 /* matrix manipulation */
-void	hook(void *param);
+void	keyhook(void *param);
+void	scrollhook(double xdelta, double ydelta, void *param);
 
 /* get actual 2d point */
 t_2d	update_point(t_map map, t_coordis vector);
