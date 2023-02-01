@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 19:05:03 by eunskim           #+#    #+#              #
-#    Updated: 2023/02/01 12:15:03 by eunskim          ###   ########.fr        #
+#    Updated: 2023/02/01 18:17:52 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS 		:= $(addprefix $(SRC_DIR)/, \
 				get_map.c \
 				get_map_utils.c \
 				draw_map.c \
-				update_point.c \
+				update_pixel.c \
+				rotate.c \
 				keyhooks.c)
 OBJS 		:= $(SRCS:.c=.o)
 

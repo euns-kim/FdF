@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 21:39:20 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/31 22:28:26 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/01 16:18:40 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,18 @@ void	draw_map(t_map *map)
 		j = -1;
 		while (++j < map->column - 1)
 		{
-			draw_line(map, update_point((*map), map->map_array[i][j]), \
-			update_point((*map), map->map_array[i + 1][j]));
-			draw_line(map, update_point((*map), map->map_array[i][j]), \
-			update_point((*map), map->map_array[i][j + 1]));
+			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+			update_pixel((*map), map->map_array[i + 1][j]));
+			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+			update_pixel((*map), map->map_array[i][j + 1]));
 		}
-		draw_line(map, update_point((*map), map->map_array[i][j]), \
-		update_point((*map), map->map_array[i + 1][j]));
+		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+		update_pixel((*map), map->map_array[i + 1][j]));
 	}
 	j = -1;
 	while (++j < map->column - 1)
 	{
-		draw_line(map, update_point((*map), map->map_array[i][j]), \
-		update_point((*map), map->map_array[i][j + 1]));
+		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+		update_pixel((*map), map->map_array[i][j + 1]));
 	}
 }

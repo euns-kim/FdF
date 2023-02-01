@@ -6,23 +6,25 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/01 12:19:56 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:05:13 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/MLX42/include/MLX42/MLX42.h"
-#include "../lib/libft/libft.h"
-#include "../lib/libft/ft_printf.h"
-#include "../lib/get_next_line/get_next_line.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <memory.h>
-#include <math.h>
-#define WIDTH 1540
-#define HEIGHT 1028
-#define BPP sizeof(int32_t)
+#ifndef FDF_H
+# define FDF_H
+
+# include "../lib/MLX42/include/MLX42/MLX42.h"
+# include "../lib/libft/libft.h"
+# include "../lib/libft/ft_printf.h"
+# include "../lib/get_next_line/get_next_line.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <math.h>
+# define WIDTH 1540
+# define HEIGHT 1028
+# define BPP 4
 
 typedef struct s_coordis {
 	double	x;
@@ -55,31 +57,27 @@ typedef struct s_2d {
 }	t_2d;
 
 /* main */
-int32_t	main(int32_t argc, char **argv);
+int32_t		main(int32_t argc, char **argv);
 // void		free_all(t_map map, t_coordis **map_array, t_2d **point_array);
 
 /* get_map */
-void	get_map_size(t_map *map);
-void	get_map(t_map *map);
+void		get_map_size(t_map *map);
+void		get_map(t_map *map);
 
 /* get_map_utils*/
-int32_t	fdf_atoi(char **str);
-void	free_p(char	*p);
-void	free_array(int32_t i, t_coordis **array);
+int32_t		fdf_atoi(char **str);
+void		free_p(char	*p);
+void		free_array(int32_t i, t_coordis **array);
 
 /* matrix manipulation */
-void	keyhook(void *param);
-void	scrollhook(double xdelta, double ydelta, void *param);
+void		keyhook(void *param);
+void		scrollhook(double xdelta, double ydelta, void *param);
+t_coordis	rotate(t_map map, t_coordis vector);
 
 /* get actual 2d point */
-t_2d	update_point(t_map map, t_coordis vector);
+t_2d		update_pixel(t_map map, t_coordis map_struct);
 
 /* draw */
-void	draw_map(t_map *map);
+void		draw_map(t_map *map);
 
-// t_2d		**isometric_projection(t_map map, t_coordis **map_array, t_2d **point);
-// t_coordis	**rotate(t_map map, t_coordis **map_array);
-
-// t_2d		**update_point(t_map *map, t_coordis **map_array, t_2d **point);
-// void		free_array2(int32_t i, t_2d **array);
-// void		draw_map(mlx_image_t *img, t_map map, t_2d **point);
+#endif

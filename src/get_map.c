@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/01 12:16:22 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/01 18:19:17 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static t_coordis	**malloc_map(t_map map, t_coordis **map_array)
 	{
 		ft_printf("Malloc failed.");
 		exit(EXIT_FAILURE);
+		// system("leaks fdf");
 	}
 	while (i < map.row)
 	{
@@ -60,6 +61,7 @@ static t_coordis	**malloc_map(t_map map, t_coordis **map_array)
 			free_array(i - 1, map_array);
 			ft_printf("Malloc failed.");
 			exit(EXIT_FAILURE);
+			// system("leaks fdf");
 		}
 		i++;
 	}
@@ -75,20 +77,25 @@ void	get_map(t_map *map)
 	{
 		ft_printf("file open error\n");
 		exit(EXIT_FAILURE);
+		// system("leaks fdf");
 	}
 	map->map_array = malloc_map((*map), map->map_array);
 	map->map_array = parse_map(fd, (*map), map->map_array);
 	if (close(fd) < 0)
 	{
+		free_array(map->row - 1, map->map_array);
 		ft_printf("file close error\n");
 		exit(EXIT_FAILURE);
+		// system("leaks fdf");
 	}
 }
 
-static void	get_column(char *line, t_map *map)
+static int32_t	get_column(char *line, t_map *map)
 {
 	double	prev_column;
+	char	*line_cpy;
 
+	line_cpy = line;
 	if (map->row != 1)
 		prev_column = map->column;
 	map->column = 1;
@@ -100,11 +107,13 @@ static void	get_column(char *line, t_map *map)
 			map->column++;
 		line++;
 	}
+	free(line_cpy);
 	if (map->row != 1 && prev_column != map->column)
 	{
 		ft_printf("Found wrong line length. Exiting.");
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	get_map_size(t_map *map)
@@ -117,19 +126,24 @@ void	get_map_size(t_map *map)
 	{
 		ft_printf("file open error\n");
 		exit(EXIT_FAILURE);
+		// system("leaks fdf");
 	}
 	map->row = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
 		map->row++;
-		get_column(line, map);
-		free(line);
+		if (get_column(line, map) == 1)
+		{
+			exit(EXIT_FAILURE);
+			// system("leaks fdf");
+		}
 		line = get_next_line(fd);
 	}
 	if (close(fd) < 0)
 	{
 		ft_printf("file close error\n");
 		exit(EXIT_FAILURE);
+		// system("leaks fdf");
 	}
 }
