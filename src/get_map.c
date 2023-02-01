@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/31 22:16:50 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:16:22 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_coordis	**malloc_map(t_map map, t_coordis **map_array)
 	map_array = malloc(map.row * sizeof(t_coordis *));
 	if (map_array == NULL)
 	{
-		printf("Malloc failed.");
+		ft_printf("Malloc failed.");
 		exit(EXIT_FAILURE);
 	}
 	while (i < map.row)
@@ -58,7 +58,7 @@ static t_coordis	**malloc_map(t_map map, t_coordis **map_array)
 		if (map_array[i] == NULL)
 		{	
 			free_array(i - 1, map_array);
-			printf("Malloc failed.");
+			ft_printf("Malloc failed.");
 			exit(EXIT_FAILURE);
 		}
 		i++;
@@ -73,14 +73,14 @@ void	get_map(t_map *map)
 	fd = open(map->filename, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("file open error\n");
+		ft_printf("file open error\n");
 		exit(EXIT_FAILURE);
 	}
 	map->map_array = malloc_map((*map), map->map_array);
 	map->map_array = parse_map(fd, (*map), map->map_array);
 	if (close(fd) < 0)
 	{
-		printf("file close error\n");
+		ft_printf("file close error\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -102,7 +102,7 @@ static void	get_column(char *line, t_map *map)
 	}
 	if (map->row != 1 && prev_column != map->column)
 	{
-		printf("Found wrong line length. Exiting.");
+		ft_printf("Found wrong line length. Exiting.");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -115,7 +115,7 @@ void	get_map_size(t_map *map)
 	fd = open(map->filename, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("file open error\n");
+		ft_printf("file open error\n");
 		exit(EXIT_FAILURE);
 	}
 	map->row = 0;
@@ -129,7 +129,7 @@ void	get_map_size(t_map *map)
 	}
 	if (close(fd) < 0)
 	{
-		printf("file close error\n");
+		ft_printf("file close error\n");
 		exit(EXIT_FAILURE);
 	}
 }

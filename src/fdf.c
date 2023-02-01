@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/31 22:29:30 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:15:38 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static void	mlx_start(t_map *map)
 	map->mlx = mlx_init(WIDTH, HEIGHT, "FdF - eunskim", true);
 	if (!(map->mlx))
 	{
-		printf("MLX failed");
+		ft_printf("MLX failed");
 		exit(EXIT_FAILURE);
 	}
 	map->img = mlx_new_image(map->mlx, WIDTH, HEIGHT);
 	if (!(map->img))
 	{
-		printf("MLX failed");
+		ft_printf("MLX failed");
 		exit(EXIT_FAILURE);
 	}
 	mlx_image_to_window(map->mlx, map->img, 0, 0);
 	if (mlx_image_to_window(map->mlx, map->img, 0, 0) < 0)
 	{
-		printf("MLX failed");
+		ft_printf("MLX failed");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -78,12 +78,12 @@ static void	arg_check(int32_t argc, char **argv)
 {
 	if (argc != 2)
 	{
-		printf("Usage: ./fdf [filename].fdf");
+		ft_printf("Usage: ./fdf [filename].fdf");
 		exit(EXIT_FAILURE);
 	}
 	if (extension_check(argv[1]) == 0)
 	{
-		printf("Wrong file extension. Should be a .fdf file.");
+		ft_printf("Wrong file extension. Should be a .fdf file.");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -97,7 +97,7 @@ int32_t	main(int32_t argc, char **argv)
 	get_map_size(&map);
 	get_map(&map);
 	mlx_start(&map);
-	memset(map.img->pixels, 255, map.img->width * map.img->height * BPP);
+	ft_memset(map.img->pixels, 255, map.img->width * map.img->height * BPP);
 	draw_map(&map);
 	mlx_loop_hook(map.mlx, &keyhook, &map);
 	mlx_scroll_hook(map.mlx, &scrollhook, &map);

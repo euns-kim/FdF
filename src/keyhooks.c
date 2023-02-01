@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:46:49 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/31 22:27:23 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:16:57 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	translate(int32_t key, t_map *map)
 		map->y_offset -= 8;
 	if (key == MLX_KEY_DOWN)
 		map->y_offset += 8;
-	memset(map->img->pixels, 255, map->img->width * map->img->height * BPP);
+	ft_memset(map->img->pixels, 255, map->img->width * map->img->height * BPP);
 	draw_map(map);
 }
 
@@ -96,6 +96,6 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 		map->factor -= 5;
 	else if (xdelta > 0)
 		map->factor += 5;
-	memset(map->img->pixels, 255, map->img->width * map->img->height * BPP);
+	ft_memset(map->img->pixels, 255, map->img->width * map->img->height * BPP);
 	draw_map(map);
 }

@@ -6,11 +6,13 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/31 18:25:10 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:19:56 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "../lib/libft/libft.h"
+#include "../lib/libft/ft_printf.h"
 #include "../lib/get_next_line/get_next_line.h"
 #include <stdlib.h>
 #include <stdio.h>
