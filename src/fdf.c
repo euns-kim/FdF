@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/01 18:18:34 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 00:49:22 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ static void	mlx_start(t_map *map)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
-		exit(EXIT_FAILURE);
 		// system("leaks fdf");
+		exit(EXIT_FAILURE);
 	}
 	map->img = mlx_new_image(map->mlx, WIDTH, HEIGHT);
 	if (!(map->img))
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
-		exit(EXIT_FAILURE);
 		// system("leaks fdf");
+		exit(EXIT_FAILURE);
 	}
 	mlx_image_to_window(map->mlx, map->img, 0, 0);
 	if (mlx_image_to_window(map->mlx, map->img, 0, 0) < 0)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
-		exit(EXIT_FAILURE);
 		// system("leaks fdf");
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -79,14 +79,14 @@ static void	arg_check(int32_t argc, char **argv)
 	if (argc != 2)
 	{
 		ft_printf("Usage: ./fdf [filename].fdf");
-		exit(EXIT_FAILURE);
 		// system("leaks fdf");
+		exit(EXIT_FAILURE);
 	}
 	if (extension_check(argv[1]) == 0)
 	{
 		ft_printf("Wrong file extension. Should be a .fdf file.");
+		// system("leaks fdf");	
 		exit(EXIT_FAILURE);
-		// system("leaks fdf");
 	}
 }
 
@@ -99,7 +99,6 @@ int32_t	main(int32_t argc, char **argv)
 	get_map_size(&map);
 	get_map(&map);
 	mlx_start(&map);
-	ft_memset(map.img->pixels, 255, map.img->width * map.img->height * BPP);
 	draw_map(&map);
 	mlx_loop_hook(map.mlx, &keyhook, &map);
 	mlx_scroll_hook(map.mlx, &scrollhook, &map);
@@ -107,6 +106,6 @@ int32_t	main(int32_t argc, char **argv)
 	mlx_delete_image(map.mlx, map.img);
 	mlx_terminate(map.mlx);
 	free_array(map.row - 1, map.map_array);
-	exit(EXIT_SUCCESS);
 	// system("leaks fdf");
+	exit(EXIT_SUCCESS);
 }

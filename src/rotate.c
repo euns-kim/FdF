@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 02:16:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/01 17:13:50 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/03 21:33:23 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ t_coordis	rotate(t_map map, t_coordis vector)
 	double beta = map.rotate_y * (M_PI / 180);
 	double gamma = map.rotate_z * (M_PI / 180);
 
-	rotate_x(&vector, alpha);
 	rotate_y(&vector, beta);
 	rotate_z(&vector, gamma);
+	rotate_x(&vector, alpha);
 	return (vector);
 }

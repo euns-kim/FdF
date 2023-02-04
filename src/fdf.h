@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/01 18:05:13 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 00:11:37 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 # define BPP 4
 
 typedef struct s_coordis {
-	double	x;
-	double	y;
-	double	z;
+	double		x;
+	double		y;
+	double		z;
+	uint32_t	color;
 }	t_coordis;
 
 typedef struct s_map {
@@ -65,6 +66,7 @@ void		get_map_size(t_map *map);
 void		get_map(t_map *map);
 
 /* get_map_utils*/
+uint32_t	get_color(char **str);
 int32_t		fdf_atoi(char **str);
 void		free_p(char	*p);
 void		free_array(int32_t i, t_coordis **array);

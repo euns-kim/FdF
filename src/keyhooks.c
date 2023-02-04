@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:46:49 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/01 17:29:30 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 00:54:27 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,43 @@
 // ZOOM IN/OUT (FASTER) : SCROLL + SHIFT
 // D : TO DEFAULT
 
+// static void	draw_default_map(t_map *map)
+// {
+// 	int32_t	i;
+// 	int32_t	j;
+
+// 	i = -1;
+// 	while (++i < map->row - 1)
+// 	{
+// 		j = -1;
+// 		while (++j < map->column - 1)
+// 		{
+// 			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+// 			update_pixel((*map), map->map_array[i + 1][j]));
+// 			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+// 			update_pixel((*map), map->map_array[i][j + 1]));
+// 		}
+// 		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+// 		update_pixel((*map), map->map_array[i + 1][j]));
+// 	}
+// 	j = -1;
+// 	while (++j < map->column - 1)
+// 	{
+// 		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
+// 		update_pixel((*map), map->map_array[i][j + 1]));
+// 	}
+// }
+
+// static void to_default(int32_t key, t_map *map)
+// {
+// 	if (key == MLX_KEY_D)
+// 	{
+		
+// 	}
+
+
+// }
+
 static void	rule_rotate(int32_t key, t_map *map)
 {
 	if (key == MLX_KEY_Q)
@@ -36,7 +73,7 @@ static void	rule_rotate(int32_t key, t_map *map)
 		map->rotate_z += 5;
 	if (key == MLX_KEY_X)
 		map->rotate_z -= 5;
-	ft_memset(map->img->pixels, 255, map->img->width * map->img->height * BPP);
+	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
 	draw_map(map);
 }
 
@@ -50,7 +87,7 @@ static void	translate(int32_t key, t_map *map)
 		map->y_offset -= 8;
 	if (key == MLX_KEY_DOWN)
 		map->y_offset += 8;
-	ft_memset(map->img->pixels, 255, map->img->width * map->img->height * BPP);
+	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
 	draw_map(map);
 }
 
@@ -81,6 +118,8 @@ void	keyhook(void *param)
 		translate(MLX_KEY_UP, map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_DOWN))
 		translate(MLX_KEY_DOWN, map);
+	// if (mlx_is_key_down(map->mlx, MLX_KEY_D))
+	// 	to_default(MLX_KEY_D, map);
 }
 
 void	scrollhook(double xdelta, double ydelta, void *param)
@@ -104,6 +143,6 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 	}
 	else if (xdelta > 0)
 		map->factor += 7;
-	ft_memset(map->img->pixels, 255, map->img->width * map->img->height * BPP);
+	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
 	draw_map(map);
 }

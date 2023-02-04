@@ -6,11 +6,34 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:45:03 by eunskim           #+#    #+#             */
-/*   Updated: 2023/01/25 14:14:08 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 01:07:01 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+uint32_t	get_color(char **str)
+{	
+	uint32_t color_code;
+	
+	color_code = 0;
+	(*str)++;
+	if (**str == '0')
+		(*str)++;
+	if (**str == 'x' || **str == 'X')
+		(*str)++;
+	while (**str != ' ' && **str != '\n' && **str != '\0')
+	{
+		if (**str >= '0' && **str <= '9')
+			color_code = color_code * 16 + (**str - '0');
+		if ((**str >= 'A' && **str <= 'F'))
+			color_code = color_code * 16 + (**str - 'A') + 10;
+		if ((**str >= 'a' && **str <= 'f'))
+			color_code = color_code * 16 + (**str - 'a') + 10;
+		(*str)++;
+	}
+	return (color_code);
+}
 
 int32_t	fdf_atoi(char **str)
 {
@@ -28,11 +51,6 @@ int32_t	fdf_atoi(char **str)
 	{
 		sum = sum * 10 + (**str - '0');
 		(*str)++;
-	}
-	if (**str == ',')
-	{
-		while (**str != ' ' && **str != '\n' && **str != '\0')
-			(*str)++;
 	}
 	return (sum * sign);
 }
