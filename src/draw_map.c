@@ -6,18 +6,18 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 21:39:20 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/01 16:18:40 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:13:19 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	put_pixel(mlx_image_t *img, t_2d point)
+static void	put_pixel(mlx_image_t *img, t_2d point, int32_t gradient_color)
 {
 	if (point.x > 0 && point.x < WIDTH \
 	&& point.y > 0 && point.y < HEIGHT)
 	{
-		mlx_put_pixel(img, point.x, point.y, 0xEE4B2BFF);
+		mlx_put_pixel(img, point.x, point.y, gradient_color);
 	}
 }
 
@@ -25,7 +25,10 @@ static void	draw_line_low(t_map *map, t_2d point, t_2d next_point)
 {
 	int32_t	yi;
 	int32_t	p;
+	t_2d	start_point;
+	int32_t	gradient_color;
 
+	start_point = point;
 	map->dx = next_point.x - point.x;
 	map->dy = next_point.y - point.y;
 	yi = 1;
@@ -37,7 +40,8 @@ static void	draw_line_low(t_map *map, t_2d point, t_2d next_point)
 	p = (2 * (map->dy)) - map->dx;
 	while (point.x <= next_point.x)
 	{
-		put_pixel(map->img, point);
+		gradient_color = coloring(map, start_point, point, next_point);
+		put_pixel(map->img, point, gradient_color);
 		point.x += 1;
 		if (p > 0)
 		{
@@ -53,7 +57,10 @@ static void	draw_line_high(t_map *map, t_2d point, t_2d next_point)
 {
 	int32_t	xi;
 	int32_t	p;
+	t_2d	start_point;
+	int32_t	gradient_color;
 
+	start_point = point;
 	map->dx = next_point.x - point.x;
 	map->dy = next_point.y - point.y;
 	xi = 1;
@@ -65,7 +72,8 @@ static void	draw_line_high(t_map *map, t_2d point, t_2d next_point)
 	p = (2 * (map->dx)) - map->dy;
 	while (point.y <= next_point.y)
 	{
-		put_pixel(map->img, point);
+		gradient_color = coloring(map, start_point, point, next_point);
+		put_pixel(map->img, point, gradient_color);
 		point.y += 1;
 		if (p > 0)
 		{

@@ -6,22 +6,22 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/04 00:11:37 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:11:49 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../lib/MLX42/include/MLX42/MLX42.h"
-# include "../lib/libft/libft.h"
-# include "../lib/libft/ft_printf.h"
-# include "../lib/get_next_line/get_next_line.h"
+# include "MLX42.h"
+# include "libft.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
 # include <stdlib.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <math.h>
+# include <limits.h>
 # define WIDTH 1540
 # define HEIGHT 1028
 # define BPP 4
@@ -53,8 +53,9 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_2d {
-	double	x;
-	double	y;
+	double		x;
+	double		y;
+	uint32_t	color;
 }	t_2d;
 
 /* main */
@@ -81,5 +82,8 @@ t_2d		update_pixel(t_map map, t_coordis map_struct);
 
 /* draw */
 void		draw_map(t_map *map);
+
+/* coloring */
+int32_t	coloring(t_map *map, t_2d start, t_2d current, t_2d end);
 
 #endif

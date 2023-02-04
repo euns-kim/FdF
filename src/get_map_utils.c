@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:45:03 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/04 01:07:01 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 23:11:13 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ uint32_t	get_color(char **str)
 	{
 		if (**str >= '0' && **str <= '9')
 			color_code = color_code * 16 + (**str - '0');
-		if ((**str >= 'A' && **str <= 'F'))
+		else if ((**str >= 'A' && **str <= 'F'))
 			color_code = color_code * 16 + (**str - 'A') + 10;
-		if ((**str >= 'a' && **str <= 'f'))
+		else if ((**str >= 'a' && **str <= 'f'))
 			color_code = color_code * 16 + (**str - 'a') + 10;
 		(*str)++;
 	}

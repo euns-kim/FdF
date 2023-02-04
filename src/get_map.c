@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/04 01:15:05 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/04 22:15:03 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static t_coordis	**parse_map(int32_t fd, t_map map, t_coordis **map_array)
 				map_array[i][j].z = fdf_atoi(&line);
 				if (*line == ',')
 					map_array[i][j].color = get_color(&line);
+				else
+					map_array[i][j].color = UINT32_MAX;
 			}
 		}
 		free_p(line_cpy);

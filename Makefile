@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 19:05:03 by eunskim           #+#    #+#              #
-#    Updated: 2023/02/01 18:17:52 by eunskim          ###   ########.fr        #
+#    Updated: 2023/02/04 21:47:05 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBGLFW 	:= lib/glfw-3.3.8
 LIBFT		:= lib/libft
 LIBGNL		:= lib/get_next_line
 SRC_DIR 	:= src
-HEADERS		:= -I $(LIBMLX)/include/MLX42/
+HEADERS		:= -I $(LIBMLX)/include/MLX42/ -I $(LIBFT) -I $(LIBGNL)
 MLX42 		:= $(LIBMLX)/libmlx42.a
 GLFW3 		:= $(LIBGLFW)/lib-x86_64/libglfw3.a
 LIBC		:= $(LIBFT)/libft.a
@@ -31,7 +31,8 @@ SRCS 		:= $(addprefix $(SRC_DIR)/, \
 				draw_map.c \
 				update_pixel.c \
 				rotate.c \
-				keyhooks.c)
+				keyhooks.c \
+				gradient.c)
 OBJS 		:= $(SRCS:.c=.o)
 
 #//= Colors =//#
@@ -63,7 +64,7 @@ $(NAME): $(OBJS)
 	echo "$(BLUE)$(BOLD)Compilation successful!$(RESET)"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ 
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
 clean:
 	@rm -f $(OBJS)
