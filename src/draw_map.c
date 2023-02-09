@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 21:39:20 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/04 23:13:19 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/09 13:35:36 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	draw_line_high(t_map *map, t_2d point, t_2d next_point)
 	}	
 }
 
-static void	draw_line(t_map *map, t_2d point, t_2d next_point)
+void	draw_line(t_map *map, t_2d point, t_2d next_point)
 {
 	map->dx = next_point.x - point.x;
 	map->dy = next_point.y - point.y;

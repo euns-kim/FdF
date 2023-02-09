@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/04 23:11:49 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/09 17:48:36 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ int32_t		fdf_atoi(char **str);
 void		free_p(char	*p);
 void		free_array(int32_t i, t_coordis **array);
 
+/* scale */
+void	scale(t_map *map);
+
 /* matrix manipulation */
 void		keyhook(void *param);
 void		scrollhook(double xdelta, double ydelta, void *param);
@@ -82,8 +85,9 @@ t_2d		update_pixel(t_map map, t_coordis map_struct);
 
 /* draw */
 void		draw_map(t_map *map);
+void		draw_line(t_map *map, t_2d point, t_2d next_point);
 
 /* coloring */
-int32_t	coloring(t_map *map, t_2d start, t_2d current, t_2d end);
+int32_t		coloring(t_map *map, t_2d start, t_2d current, t_2d end);
 
 #endif
