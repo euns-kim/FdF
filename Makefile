@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 19:05:03 by eunskim           #+#    #+#              #
-#    Updated: 2023/02/09 17:49:29 by eunskim          ###   ########.fr        #
+#    Updated: 2023/02/10 23:19:14 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,11 @@ SRCS 		:= $(addprefix $(SRC_DIR)/, \
 				draw_map.c \
 				update_pixel.c \
 				rotate.c \
-				keyhooks.c \
+				hooks.c \
 				gradient.c \
-				scale.c)
+				scale.c \
+				print_manual.c \
+				parallel_projection.c)
 OBJS 		:= $(SRCS:.c=.o)
 
 #//= Colors =//#

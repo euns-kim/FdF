@@ -6,13 +6,13 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:07:38 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/09 19:12:15 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 00:29:55 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static double	get_scale(double max_x, double max_y)
+double	get_scale(double max_x, double max_y)
 {
 	double	factor_x;
 	double	factor_y;

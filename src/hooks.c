@@ -1,26 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyhooks.c                                         :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:46:49 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/09 13:36:34 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 00:04:33 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// MLX_KEY_IS_DOWN
-// Q / W : X_AXIS ROTATION
-// A / S : Y_AXIS ROTATION
-// Z / X : Z_AXIS ROTATION
-// ARROW : TRANSLATION (VERTICAL & HORIZONTAL)
 // CMD+ : ROTATION OF 45 DEGREE ANGLE
-// ZOOM IN/OUT : SCROLL
-// ZOOM IN/OUT (FASTER) : SCROLL + SHIFT
-// D : TO DEFAULT
+
+
+void	keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_map	*map;
+
+	map = (t_map *) param;
+	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
+		map->rotate_x += 40;
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
+		map->rotate_x -= 40;
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
+		map->rotate_y += 40;
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
+		map->rotate_y -= 40;
+	if (keydata.key == MLX_KEY_Z && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
+		map->rotate_z += 40;
+	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
+		map->rotate_z -= 40;
+	if (keydata.key == MLX_KEY_1 && keydata.action == MLX_PRESS)
+		draw_parallel_map(MLX_KEY_1, map);
+	if (keydata.key == MLX_KEY_2 && keydata.action == MLX_PRESS)
+		draw_parallel_map(MLX_KEY_2, map);
+	if (keydata.key == MLX_KEY_3 && keydata.action == MLX_PRESS)
+		draw_parallel_map(MLX_KEY_3, map);
+}
 
 static void	draw_default_map(t_map *map)
 {
@@ -53,14 +71,12 @@ static void to_default(int32_t key, t_map *map)
 {
 	if (key == MLX_KEY_D)
 	{
-		map->new_axis = WIDTH / 2;
-		map->new_ordinate = HEIGHT / 2;
-		map->factor = 20;
 		map->rotate_x = 0;
 		map->rotate_y = 0;
 		map->rotate_z = 0;
 		map->x_offset = 0;
 		map->y_offset = 0;
+		scale(map);
 	}
 	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
 	draw_default_map(map);
@@ -98,7 +114,7 @@ static void	translate(int32_t key, t_map *map)
 	draw_map(map);
 }
 
-void	keyhook(void *param)
+void	hook(void *param)
 {
 	t_map	*map;
 

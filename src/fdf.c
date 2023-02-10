@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/09 17:51:16 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 00:22:33 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ int32_t	main(int32_t argc, char **argv)
 	scale(&map);
 	mlx_start(&map);
 	draw_map(&map);
-	mlx_loop_hook(map.mlx, &keyhook, &map);
+	print_manual();
+	mlx_loop_hook(map.mlx, &hook, &map);
+	mlx_key_hook(map.mlx, &keyhook, &map);
 	mlx_scroll_hook(map.mlx, &scrollhook, &map);
 	mlx_loop(map.mlx);
 	mlx_delete_image(map.mlx, map.img);
