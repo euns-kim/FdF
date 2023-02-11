@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:16:40 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/09 13:34:15 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:26:55 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_2d	update_pixel(t_map map, t_coordis map_struct)
 	t_2d		pixel;
 
 	vector = map_struct;
+	vector.z *= map.z_inc;
 	vector = rotate(map, vector);
 	pixel.color = vector.color;
 	pixel.x = (vector.x - vector.y) * cos(0.46365);

@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 21:39:20 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/09 13:35:36 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 22:44:58 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ static void	put_pixel(mlx_image_t *img, t_2d point, int32_t gradient_color)
 
 static void	draw_line_low(t_map *map, t_2d point, t_2d next_point)
 {
-	int32_t	yi;
 	int32_t	p;
+	int32_t	yi;
 	t_2d	start_point;
-	int32_t	gradient_color;
 
-	start_point = point;
-	map->dx = next_point.x - point.x;
-	map->dy = next_point.y - point.y;
 	yi = 1;
+	start_point = point;
 	if (map->dy < 0)
 	{
 		yi = -1;
@@ -40,8 +37,8 @@ static void	draw_line_low(t_map *map, t_2d point, t_2d next_point)
 	p = (2 * (map->dy)) - map->dx;
 	while (point.x <= next_point.x)
 	{
-		gradient_color = coloring(map, start_point, point, next_point);
-		put_pixel(map->img, point, gradient_color);
+		map->gradient_color = coloring(map, start_point, point, next_point);
+		put_pixel(map->img, point, map->gradient_color);
 		point.x += 1;
 		if (p > 0)
 		{
@@ -55,15 +52,12 @@ static void	draw_line_low(t_map *map, t_2d point, t_2d next_point)
 
 static void	draw_line_high(t_map *map, t_2d point, t_2d next_point)
 {
-	int32_t	xi;
 	int32_t	p;
+	int32_t	xi;
 	t_2d	start_point;
-	int32_t	gradient_color;
 
-	start_point = point;
-	map->dx = next_point.x - point.x;
-	map->dy = next_point.y - point.y;
 	xi = 1;
+	start_point = point;
 	if (map->dx < 0)
 	{
 		xi = -1;
@@ -72,8 +66,8 @@ static void	draw_line_high(t_map *map, t_2d point, t_2d next_point)
 	p = (2 * (map->dx)) - map->dy;
 	while (point.y <= next_point.y)
 	{
-		gradient_color = coloring(map, start_point, point, next_point);
-		put_pixel(map->img, point, gradient_color);
+		map->gradient_color = coloring(map, start_point, point, next_point);
+		put_pixel(map->img, point, map->gradient_color);
 		point.y += 1;
 		if (p > 0)
 		{
@@ -82,7 +76,7 @@ static void	draw_line_high(t_map *map, t_2d point, t_2d next_point)
 		}
 		else
 			p = p + (2 * map->dx);
-	}	
+	}
 }
 
 void	draw_line(t_map *map, t_2d point, t_2d next_point)
@@ -92,14 +86,22 @@ void	draw_line(t_map *map, t_2d point, t_2d next_point)
 	if (abs(map->dy) < abs(map->dx))
 	{
 		if (point.x > next_point.x)
+		{
+			map->dx *= -1;
+			map->dy *= -1;
 			draw_line_low(map, next_point, point);
+		}			
 		else
 			draw_line_low(map, point, next_point);
 	}
 	else
 	{
 		if (point.y > next_point.y)
+		{
+			map->dx *= -1;
+			map->dy *= -1;
 			draw_line_high(map, next_point, point);
+		}
 		else
 			draw_line_high(map, point, next_point);
 	}

@@ -6,19 +6,40 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:27:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 00:32:38 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 22:58:57 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+t_2d	parallel_projection(int32_t key, t_map *map, t_coordis map_struct)
+{
+	t_2d	pixel;
+
+	if (key == MLX_KEY_1)
+	{
+		pixel.x = map_struct.x * map->scale_p + map->new_axis;
+		pixel.y = map_struct.y * map->scale_p + map->new_ordinate;
+	}
+	else if (key == MLX_KEY_2)
+	{
+		pixel.x = map_struct.x * map->scale_p + map->new_axis;
+		pixel.y = -map_struct.z * map->scale_p + map->new_ordinate;
+	}
+	else if (key == MLX_KEY_3)
+	{
+		pixel.x = map_struct.y * map->scale_p + map->new_axis;
+		pixel.y = -map_struct.z * map->scale_p + map->new_ordinate;
+	}
+	pixel.color = map_struct.color;
+	return (pixel);
+}
+
 void	draw_parallel_map(int32_t key, t_map *map)
 {
-	scale_parallel_projection(key, map);
-	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
 	int32_t	i;
 	int32_t	j;
-	
+
 	i = -1;
 	while (++i < map->row - 1)
 	{
@@ -41,7 +62,8 @@ void	draw_parallel_map(int32_t key, t_map *map)
 	}
 }
 
-static void	max_xy_p(int32_t key, t_coordis map_struct, double *max_x, double *max_y)
+static void	max_xy_parallel(int32_t key, t_coordis map_struct, \
+double *max_x, double *max_y)
 {
 	double	current_x;
 	double	current_y;
@@ -82,7 +104,7 @@ void	scale_parallel_projection(int32_t key, t_map *map)
 		j = 0;
 		while (j < map->column)
 		{
-			max_xy_p(key, map->map_array[i][j], &max_x, &max_y);
+			max_xy_parallel(key, map->map_array[i][j], &max_x, &max_y);
 			j++;
 		}
 		i++;
@@ -90,26 +112,9 @@ void	scale_parallel_projection(int32_t key, t_map *map)
 	map->scale_p = get_scale(max_x, max_y);
 }
 
-t_2d	parallel_projection(int32_t key, t_map *map, t_coordis map_struct)
+void	parallel_map(int32_t key, t_map *map)
 {
-	t_2d	pixel;
-
-	if (key == MLX_KEY_1)
-	{
-		pixel.x = map_struct.x * map->scale_p + map->new_axis;
-		pixel.y = map_struct.y * map->scale_p + map->new_ordinate;
-	}
-	else if (key == MLX_KEY_2)
-	{
-		pixel.x = map_struct.x * map->scale_p + map->new_axis;
-		pixel.y = -map_struct.z * map->scale_p + map->new_ordinate;
-	}
-	else if (key == MLX_KEY_3)
-	{
-		pixel.x = map_struct.y * map->scale_p + map->new_axis;
-		pixel.y = -map_struct.z * map->scale_p + map->new_ordinate;
-	}
-	pixel.color = map_struct.color;
-	return (pixel);
+	scale_parallel_projection(key, map);
+	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
+	draw_parallel_map(key, map);
 }
-

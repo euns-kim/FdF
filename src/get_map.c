@@ -6,13 +6,13 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/10 22:01:41 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 21:42:53 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_coordis	**parse_map(int32_t fd, t_map map, t_coordis **map_array)
+static void	parse_map(int32_t fd, t_map *map)
 {
 	int32_t	i;
 	int32_t	j;
@@ -20,29 +20,24 @@ static t_coordis	**parse_map(int32_t fd, t_map map, t_coordis **map_array)
 	char	*line_cpy;
 
 	i = -1;
-	while (++i < map.row)
+	while (++i < map->row)
 	{
 		j = -1;
 		line = get_next_line(fd);
 		line_cpy = line;
-		while (++j < map.column && line)
+		while (++j < map->column && line)
 		{	
 			while (*line == ' ')
 				line++;
 			if ((*line >= '0' && *line <= '9') || *line == '-')
 			{
-				map_array[i][j].x = j - (map.column / 2);
-				map_array[i][j].y = i - (map.row / 2);
-				map_array[i][j].z = fdf_atoi(&line);
+				map->map_array[i][j].z = fdf_atoi(&line);
 				if (*line == ',')
-					map_array[i][j].color = get_color(&line);
-				else
-					map_array[i][j].color = UINT32_MAX;
+					map->map_array[i][j].color = get_color(&line);
 			}
 		}
 		free_p(line_cpy);
 	}
-	return (map_array);
 }
 
 static t_coordis	**calloc_map(t_map map, t_coordis **map_array)
@@ -84,7 +79,8 @@ void	get_map(t_map *map)
 		exit(EXIT_FAILURE);
 	}
 	map->map_array = calloc_map((*map), map->map_array);
-	map->map_array = parse_map(fd, (*map), map->map_array);
+	parse_map(fd, map);
+	save_values(map);
 	if (close(fd) < 0)
 	{
 		free_array(map->row - 1, map->map_array);

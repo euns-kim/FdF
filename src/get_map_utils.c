@@ -6,16 +6,35 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:45:03 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/10 18:33:42 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 21:46:11 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	save_values(t_map *map)
+{
+	int32_t	i;
+	int32_t	j;
+
+	i = -1;
+	while (++i < map->row)
+	{
+		j = -1;
+		while (++j < map->column)
+		{
+			map->map_array[i][j].x = j - (map->column / 2);
+			map->map_array[i][j].y = i - (map->row / 2);
+			if (map->map_array[i][j].color == 0)
+				map->map_array[i][j].color = UINT32_MAX;
+		}
+	}
+}
+
 uint32_t	get_color(char **str)
 {	
-	uint32_t color_code;
-	
+	uint32_t	color_code;
+
 	color_code = 0;
 	(*str)++;
 	if (**str == '0')

@@ -6,144 +6,11 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:46:49 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 00:04:33 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:05:38 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-// CMD+ : ROTATION OF 45 DEGREE ANGLE
-
-
-void	keyhook(mlx_key_data_t keydata, void *param)
-{
-	t_map	*map;
-
-	map = (t_map *) param;
-	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
-		map->rotate_x += 40;
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
-		map->rotate_x -= 40;
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
-		map->rotate_y += 40;
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
-		map->rotate_y -= 40;
-	if (keydata.key == MLX_KEY_Z && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
-		map->rotate_z += 40;
-	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS && keydata.modifier == MLX_CONTROL)
-		map->rotate_z -= 40;
-	if (keydata.key == MLX_KEY_1 && keydata.action == MLX_PRESS)
-		draw_parallel_map(MLX_KEY_1, map);
-	if (keydata.key == MLX_KEY_2 && keydata.action == MLX_PRESS)
-		draw_parallel_map(MLX_KEY_2, map);
-	if (keydata.key == MLX_KEY_3 && keydata.action == MLX_PRESS)
-		draw_parallel_map(MLX_KEY_3, map);
-}
-
-static void	draw_default_map(t_map *map)
-{
-	int32_t	i;
-	int32_t	j;
-
-	i = -1;
-	while (++i < map->row - 1)
-	{
-		j = -1;
-		while (++j < map->column - 1)
-		{
-			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-			update_pixel((*map), map->map_array[i + 1][j]));
-			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-			update_pixel((*map), map->map_array[i][j + 1]));
-		}
-		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-		update_pixel((*map), map->map_array[i + 1][j]));
-	}
-	j = -1;
-	while (++j < map->column - 1)
-	{
-		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-		update_pixel((*map), map->map_array[i][j + 1]));
-	}
-}
-
-static void to_default(int32_t key, t_map *map)
-{
-	if (key == MLX_KEY_D)
-	{
-		map->rotate_x = 0;
-		map->rotate_y = 0;
-		map->rotate_z = 0;
-		map->x_offset = 0;
-		map->y_offset = 0;
-		scale(map);
-	}
-	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
-	draw_default_map(map);
-}
-
-static void	rule_rotate(int32_t key, t_map *map)
-{
-	if (key == MLX_KEY_Q)
-		map->rotate_x += 5;
-	if (key == MLX_KEY_W)
-		map->rotate_x -= 5;
-	if (key == MLX_KEY_A)
-		map->rotate_y += 5;
-	if (key == MLX_KEY_S)
-		map->rotate_y -= 5;
-	if (key == MLX_KEY_Z)
-		map->rotate_z += 5;
-	if (key == MLX_KEY_X)
-		map->rotate_z -= 5;
-	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
-	draw_map(map);
-}
-
-static void	translate(int32_t key, t_map *map)
-{
-	if (key == MLX_KEY_RIGHT)
-		map->x_offset += 8;
-	if (key == MLX_KEY_LEFT)
-		map->x_offset -= 8;
-	if (key == MLX_KEY_UP)
-		map->y_offset -= 8;
-	if (key == MLX_KEY_DOWN)
-		map->y_offset += 8;
-	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
-	draw_map(map);
-}
-
-void	hook(void *param)
-{
-	t_map	*map;
-
-	map = (t_map *) param;
-	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(map->mlx);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_Q))
-		rule_rotate(MLX_KEY_Q, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
-		rule_rotate(MLX_KEY_W, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
-		rule_rotate(MLX_KEY_A, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
-		rule_rotate(MLX_KEY_S, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_Z))
-		rule_rotate(MLX_KEY_Z, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_X))
-		rule_rotate(MLX_KEY_X, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
-		translate(MLX_KEY_RIGHT, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
-		translate(MLX_KEY_LEFT, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_UP))
-		translate(MLX_KEY_UP, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_DOWN))
-		translate(MLX_KEY_DOWN, map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
-		to_default(MLX_KEY_D, map);
-}
 
 void	scrollhook(double xdelta, double ydelta, void *param)
 {
@@ -168,4 +35,77 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 		map->factor += 7;
 	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
 	draw_map(map);
+}
+
+void	keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_map	*map;
+
+	map = (t_map *) param;
+	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS \
+	&& keydata.modifier == MLX_CONTROL)
+		map->rotate_x += 40;
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS \
+	&& keydata.modifier == MLX_CONTROL)
+		map->rotate_x -= 40;
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS \
+	&& keydata.modifier == MLX_CONTROL)
+		map->rotate_y += 40;
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS \
+	&& keydata.modifier == MLX_CONTROL)
+		map->rotate_y -= 40;
+	if (keydata.key == MLX_KEY_Z && keydata.action == MLX_PRESS \
+	&& keydata.modifier == MLX_CONTROL)
+		map->rotate_z += 40;
+	if (keydata.key == MLX_KEY_X && keydata.action == MLX_PRESS \
+	&& keydata.modifier == MLX_CONTROL)
+		map->rotate_z -= 40;
+}
+
+void	hook2(void *param)
+{
+	t_map	*map;
+
+	map = (t_map *) param;
+	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
+		rule_translate(MLX_KEY_RIGHT, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
+		rule_translate(MLX_KEY_LEFT, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_UP))
+		rule_translate(MLX_KEY_UP, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_DOWN))
+		rule_translate(MLX_KEY_DOWN, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_1))
+		parallel_map(MLX_KEY_1, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_2))
+		parallel_map(MLX_KEY_2, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_3))
+		parallel_map(MLX_KEY_3, map);
+}
+
+void	hook(void *param)
+{
+	t_map	*map;
+
+	map = (t_map *) param;
+	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(map->mlx);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_Q))
+		rule_rotate(MLX_KEY_Q, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
+		rule_rotate(MLX_KEY_W, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
+		rule_rotate(MLX_KEY_A, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
+		rule_rotate(MLX_KEY_S, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_Z))
+		rule_rotate(MLX_KEY_Z, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_X))
+		rule_rotate(MLX_KEY_X, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
+		to_default(MLX_KEY_D, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT_BRACKET))
+		manipulate_z(MLX_KEY_LEFT_BRACKET, map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT_BRACKET))
+		manipulate_z(MLX_KEY_RIGHT_BRACKET, map);
 }

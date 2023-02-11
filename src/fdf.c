@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 00:22:33 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:27:36 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	init_map(t_map *map, char *arg)
 	map->rotate_z = 0;
 	map->x_offset = 0;
 	map->y_offset = 0;
+	map->z_inc = 1;
 	map->filename = arg;
 	map->map_array = NULL;
 }
@@ -102,6 +103,7 @@ int32_t	main(int32_t argc, char **argv)
 	draw_map(&map);
 	print_manual();
 	mlx_loop_hook(map.mlx, &hook, &map);
+	mlx_loop_hook(map.mlx, &hook2, &map);
 	mlx_key_hook(map.mlx, &keyhook, &map);
 	mlx_scroll_hook(map.mlx, &scrollhook, &map);
 	mlx_loop(map.mlx);
