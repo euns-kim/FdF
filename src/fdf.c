@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 23:27:36 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:43:43 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	mlx_start(t_map *map)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 	map->img = mlx_new_image(map->mlx, WIDTH, HEIGHT);
@@ -27,7 +26,6 @@ static void	mlx_start(t_map *map)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 	mlx_image_to_window(map->mlx, map->img, 0, 0);
@@ -35,7 +33,6 @@ static void	mlx_start(t_map *map)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -79,13 +76,11 @@ static void	arg_check(int32_t argc, char **argv)
 	if (argc != 2)
 	{
 		ft_printf("Usage: ./fdf [filename].fdf");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 	if (extension_check(argv[1]) == 0)
 	{
 		ft_printf("Wrong file extension. Should be a .fdf file.");
-		// system("leaks fdf");	
 		exit(EXIT_FAILURE);
 	}
 }
@@ -110,6 +105,5 @@ int32_t	main(int32_t argc, char **argv)
 	mlx_delete_image(map.mlx, map.img);
 	mlx_terminate(map.mlx);
 	free_array(map.row - 1, map.map_array);
-	// system("leaks fdf");
 	exit(EXIT_SUCCESS);
 }

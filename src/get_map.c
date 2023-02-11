@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:42:19 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 21:42:53 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/11 23:43:22 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static t_coordis	**calloc_map(t_map map, t_coordis **map_array)
 	if (map_array == NULL)
 	{
 		ft_printf("Calloc failed.");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 	while (i < map.row)
@@ -59,7 +58,6 @@ static t_coordis	**calloc_map(t_map map, t_coordis **map_array)
 		{	
 			free_array(i - 1, map_array);
 			ft_printf("Calloc failed.");
-			// system("leaks fdf");
 			exit(EXIT_FAILURE);
 		}
 		i++;
@@ -75,7 +73,6 @@ void	get_map(t_map *map)
 	if (fd < 0)
 	{
 		ft_printf("file open error\n");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 	map->map_array = calloc_map((*map), map->map_array);
@@ -85,7 +82,6 @@ void	get_map(t_map *map)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("file close error\n");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -111,7 +107,6 @@ static int32_t	get_column(char *line, t_map *map)
 	if (map->row != 1 && prev_column != map->column)
 	{
 		ft_printf("Found wrong line length. Exiting.");
-		// system("leaks fdf");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -126,7 +121,6 @@ void	get_map_size(t_map *map)
 	if (fd < 0)
 	{
 		ft_printf("file open error\n");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 	map->row = 0;
@@ -135,16 +129,12 @@ void	get_map_size(t_map *map)
 	{
 		map->row++;
 		if (get_column(line, map) == 1)
-		{
-			// system("leaks fdf");
 			exit(EXIT_FAILURE);
-		}
 		line = get_next_line(fd);
 	}
 	if (close(fd) < 0)
 	{
 		ft_printf("file close error\n");
-		// system("leaks fdf");
 		exit(EXIT_FAILURE);
 	}
 }
