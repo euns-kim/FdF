@@ -1,10 +1,10 @@
 # FdF (fil de fer)
 
-#### Build the executable with `make` and run `./fdf [path][filename.fdf]`
+#### Build the executable with `make` and run `./fdf [path_to_file][filename.fdf]`
 
 
 
-### Features and usage guide (will be printed in terminal) 
+### Features and usage guide (will be printed in terminal when executed) 
 
 
 
