@@ -6,7 +6,7 @@
   
 * ### Open source
 
-##### [MLX42](https://github.com/codam-coding-college/MLX42) (v2.2.1) and [GLFW](https://www.glfw.org/download.html) (v3.3.8)
+###### [MLX42](https://github.com/codam-coding-college/MLX42) (v2.2.1) and [GLFW](https://www.glfw.org/download.html) (v3.3.8)
 
 
 * ### Features
