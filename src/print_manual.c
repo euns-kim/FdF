@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 19:33:35 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 23:34:23 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/13 16:05:02 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_manual(void)
 	ft_printf("%25s : parallel projection\n", "1 / 2 / 3");
 	ft_printf("%25s : translation\n", "ARROW");
 	ft_printf("%25s : zoom in/out\n", "SCROLL");
-	ft_printf("%25s : zoom in/out (faster)\n", "SCROLL + SCHIFT");
+	ft_printf("%25s : zoom in/out (faster)\n", "SCROLL + SHIFT");
 	ft_printf("%25s : back to default map\n", "D");
 	ft_printf("%25s : terminate program\n\n\n", "ESC");
 }
