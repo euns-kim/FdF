@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 23:08:18 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/16 16:07:20 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ t_2d		update_pixel(t_map map, t_coordis map_struct);
 
 /* draw */
 void		draw_map(t_map *map);
-void		draw_default_map(t_map *map);
 void		draw_parallel_map(int32_t key, t_map *map);
 void		draw_line(t_map *map, t_2d point, t_2d next_point);
 

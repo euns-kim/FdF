@@ -6,38 +6,11 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:01:46 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 23:29:57 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/16 16:07:03 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	draw_default_map(t_map *map)
-{
-	int32_t	i;
-	int32_t	j;
-
-	i = -1;
-	while (++i < map->row - 1)
-	{
-		j = -1;
-		while (++j < map->column - 1)
-		{
-			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-			update_pixel((*map), map->map_array[i + 1][j]));
-			draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-			update_pixel((*map), map->map_array[i][j + 1]));
-		}
-		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-		update_pixel((*map), map->map_array[i + 1][j]));
-	}
-	j = -1;
-	while (++j < map->column - 1)
-	{
-		draw_line(map, update_pixel((*map), map->map_array[i][j]), \
-		update_pixel((*map), map->map_array[i][j + 1]));
-	}
-}
 
 void	to_default(int32_t key, t_map *map)
 {
@@ -52,7 +25,7 @@ void	to_default(int32_t key, t_map *map)
 		scale(map);
 	}
 	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
-	draw_default_map(map);
+	draw_map(map);
 }
 
 void	manipulate_z(int32_t key, t_map *map)
