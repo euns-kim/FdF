@@ -6,11 +6,33 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:01:46 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/16 16:07:03 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/18 22:05:19 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	zoom(double xdelta, double ydelta, t_map *map)
+{
+	if (ydelta > 0)
+		map->factor += 1;
+	else if (ydelta < 0)
+	{
+		map->factor -= 1;
+		if (map->factor < 1)
+			map->factor = 1;
+	}
+	if (xdelta < 0)
+	{	
+		map->factor -= 7;
+		if (map->factor < 1)
+			map->factor = 1;
+	}
+	else if (xdelta > 0)
+		map->factor += 7;
+	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
+	draw_map(map);
+}
 
 void	to_default(int32_t key, t_map *map)
 {

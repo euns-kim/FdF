@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:46:49 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 23:05:38 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/18 22:04:26 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,13 @@ void	scrollhook(double xdelta, double ydelta, void *param)
 
 	map = (t_map *) param;
 	if (ydelta > 0)
-		map->factor += 1;
+		zoom(xdelta, ydelta, map);
 	else if (ydelta < 0)
-	{
-		map->factor -= 1;
-		if (map->factor < 1)
-			map->factor = 1;
-	}
+		zoom(xdelta, ydelta, map);
 	if (xdelta < 0)
-	{	
-		map->factor -= 7;
-		if (map->factor < 1)
-			map->factor = 1;
-	}
+		zoom(xdelta, ydelta, map);
 	else if (xdelta > 0)
-		map->factor += 7;
-	ft_bzero(map->img->pixels, map->img->width * map->img->height * BPP);
-	draw_map(map);
+		zoom(xdelta, ydelta, map);
 }
 
 void	keyhook(mlx_key_data_t keydata, void *param)

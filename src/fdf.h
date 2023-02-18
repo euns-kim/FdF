@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 01:41:41 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/16 16:07:20 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/18 22:05:54 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_coordis	rotate(t_map map, t_coordis vector);
 void		rule_translate(int32_t key, t_map *map);
 void		manipulate_z(int32_t key, t_map *map);
 void		to_default(int32_t key, t_map *map);
+void		zoom(double xdelta, double ydelta, t_map *map);
 
 /* get actual 2d point */
 t_2d		update_pixel(t_map map, t_coordis map_struct);
