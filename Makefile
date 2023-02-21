@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 19:05:03 by eunskim           #+#    #+#              #
-#    Updated: 2023/02/11 23:42:35 by eunskim          ###   ########.fr        #
+#    Updated: 2023/02/21 14:22:55 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,4 +81,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all. clean, fclean, re, libmlx, libft, libgnl
+.PHONY: all, clean, fclean, re, libmlx, libft, libgnl
