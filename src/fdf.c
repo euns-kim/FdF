@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 17:30:58 by eunskim           #+#    #+#             */
-/*   Updated: 2023/02/11 23:43:43 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/02/25 22:02:31 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	mlx_start(t_map *map)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
+		mlx_terminate(map->mlx);
 		exit(EXIT_FAILURE);
 	}
 	mlx_image_to_window(map->mlx, map->img, 0, 0);
@@ -33,6 +34,8 @@ static void	mlx_start(t_map *map)
 	{
 		free_array(map->row - 1, map->map_array);
 		ft_printf("MLX failed");
+		mlx_delete_image(map->mlx, map->img);
+		mlx_terminate(map->mlx);
 		exit(EXIT_FAILURE);
 	}
 }
